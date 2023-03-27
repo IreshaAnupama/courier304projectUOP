@@ -1,15 +1,12 @@
-package com.example.courier304project.entity;
+package com.example.courier304project.dto;
 
-import jakarta.persistence.*;
+import com.example.courier304project.entity.Customer;
 
 import java.sql.Date;
 import java.sql.Time;
 
-@Entity
-public class Parcel {
+public class ParcelDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int parcelId;
     private Float cost;
     private int paymentType;
@@ -20,17 +17,8 @@ public class Parcel {
     private Time time;
     private int scheduleNo;
     private double distance;
-    private int status; // 1= one day delevery, 2= 3 days,  3= within week , 4 = other
-
-    //@OneToMany(targetEntity = Parcel.class, cascade = CascadeType.ALL)
-    //@JoinColumn(name="fk",referencedColumnName = "customerPhone")
-
-
-    @ManyToOne
-    //@JoinColumn(name="fk",referencedColumnName = "customerPhone")
+    private int status;
     private Customer customer;
-
-    public Parcel(){}
 
     public Customer getCustomer() {
         return customer;
@@ -39,18 +27,6 @@ public class Parcel {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-
-    //constructor only cost,paymentType,dimension,status
-    public Parcel(Float cost, int paymentType, float length, float width, float height, int status,Customer customer) {
-        this.cost = cost;
-        this.paymentType = paymentType;
-        this.length = length;
-        this.width = width;
-        this.height = height;
-        this.status = status;
-        this.customer= customer;
-    }
-
 
     public int getParcelId() {
         return parcelId;
