@@ -1,15 +1,9 @@
-package com.example.courier304project.entity;
-
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+package com.example.courier304project.dto;
 
 import java.sql.Time;
 
-@Entity
-public class Courier {
+public class CourierDto {
 
-    @Id
     private String customerPhone;
     private Time endTime;
     private double latitude;
@@ -18,8 +12,6 @@ public class Courier {
     private Time startTime;
     private String courierUserName;
     private String vehicleNo; // made getter and setter until here
-
-
 
     public String getCustomerPhone() {
         return customerPhone;
