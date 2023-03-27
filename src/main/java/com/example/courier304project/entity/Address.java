@@ -28,6 +28,20 @@ public class Address {
         return customer;
     }
 
+    public Address() {
+    }
+
+    public Address(double latitude, double longitude,
+                   String line1, String line2, String line3, String city, String district) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.line1 = line1;
+        this.line2 = line2;
+        this.line3 = line3;
+        this.city = city;
+        this.district = district;
+    }
+
     public void setCustomer(List<Customer> customer) {
         this.customer = customer;
     }

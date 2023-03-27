@@ -21,9 +21,9 @@ public class ApplicationSecurityConfiguration {
         return http
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/v2/**","/user/**").permitAll()
+                .requestMatchers("/api/v1/**","/user/**").permitAll()
                 .and()
-                .authorizeHttpRequests().requestMatchers("/api/v1/**").authenticated()
+                .authorizeHttpRequests().requestMatchers("/api/v2/**").authenticated()
                 .and()
                 .httpBasic()
                 .and().build();
