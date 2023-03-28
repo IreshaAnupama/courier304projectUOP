@@ -4,7 +4,7 @@ import java.sql.Time;
 
 public class CourierDto {
 
-    private String customerPhone;
+    private String courierPhone;
     private Time endTime;
     private double latitude;
     private double longitude;
@@ -13,12 +13,12 @@ public class CourierDto {
     private String courierUserName;
     private String vehicleNo; // made getter and setter until here
 
-    public String getCustomerPhone() {
-        return customerPhone;
+    public String getCourierPhone() {
+        return courierPhone;
     }
 
-    public void setCustomerPhone(String customerPhone) {
-        this.customerPhone = customerPhone;
+    public void setCourierPhone(String courierPhone) {
+        this.courierPhone = courierPhone;
     }
 
     public Time getEndTime() {

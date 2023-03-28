@@ -10,7 +10,7 @@ import java.sql.Time;
 public class Courier {
 
     @Id
-    private String customerPhone;
+    private String courierPhone;
     private Time endTime;
     private double latitude;
     private double longitude;
@@ -19,14 +19,27 @@ public class Courier {
     private String courierUserName;
     private String vehicleNo; // made getter and setter until here
 
-
-
-    public String getCustomerPhone() {
-        return customerPhone;
+    public Courier() {
     }
 
-    public void setCustomerPhone(String customerPhone) {
-        this.customerPhone = customerPhone;
+    public Courier(String courierPhone, Time endTime, double latitude, double longitude,
+                   String password, Time startTime, String courierUserName, String vehicleNo) {
+        this.courierPhone = courierPhone;
+        this.endTime = endTime;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.password = password;
+        this.startTime = startTime;
+        this.courierUserName = courierUserName;
+        this.vehicleNo = vehicleNo;
+    }
+
+    public String getCourierPhone() {
+        return courierPhone;
+    }
+
+    public void setCourierPhone(String courierPhone) {
+        this.courierPhone = courierPhone;
     }
 
     public Time getEndTime() {
