@@ -19,6 +19,7 @@ public class CourierController {
     public  void addCourier(@RequestBody CourierDto courierDto){
         courierService.addCourier(courierDto);
 
+
     }
     @GetMapping("/getcouriers")
     public List<Courier> getAllCouriers(){
