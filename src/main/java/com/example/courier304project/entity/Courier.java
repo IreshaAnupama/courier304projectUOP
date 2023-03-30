@@ -2,6 +2,8 @@ package com.example.courier304project.entity;
 
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.sql.Time;
@@ -10,6 +12,9 @@ import java.sql.Time;
 public class Courier {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long courierId;
+
     private String courierPhone;
     private Time endTime;
     private double latitude;
@@ -22,8 +27,9 @@ public class Courier {
     public Courier() {
     }
 
-    public Courier(String courierPhone, Time endTime, double latitude, double longitude,
+    public Courier( String courierPhone, Time endTime, double latitude, double longitude,
                    String password, Time startTime, String courierUserName, String vehicleNo) {
+
         this.courierPhone = courierPhone;
         this.endTime = endTime;
         this.latitude = latitude;
@@ -32,6 +38,14 @@ public class Courier {
         this.startTime = startTime;
         this.courierUserName = courierUserName;
         this.vehicleNo = vehicleNo;
+    }
+
+    public Long getCourierId() {
+        return courierId;
+    }
+
+    public void setCourierId(Long courierId) {
+        this.courierId = courierId;
     }
 
     public String getCourierPhone() {
