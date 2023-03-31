@@ -9,6 +9,8 @@ import com.example.courier304project.repository.ParcelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ParcelService {
 
@@ -24,5 +26,9 @@ public class ParcelService {
                 parcelDto.getVehicleType(),parcelDto.getPostMethod(),parcelDto.getPaymentType(),parcelDto.getSpecialNote()
         ,parcelDto.getCost());
         return parcelRepository.save(pickup);
+    }
+
+    public List<Parcel> getAllParcel() {
+        return parcelRepository.findAll();
     }
 }
