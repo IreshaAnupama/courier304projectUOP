@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,6 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class ApplicationSecurityConfiguration {
 
     @Bean
@@ -21,9 +23,9 @@ public class ApplicationSecurityConfiguration {
         return http
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/v1/**","/user/**").permitAll()
+                .requestMatchers("/api/v2/**","/user/**").permitAll()
                 .and()
-                .authorizeHttpRequests().requestMatchers("/api/v2/**").authenticated()
+                .authorizeHttpRequests().requestMatchers("/api/v1/**").authenticated()
                 .and()
                 .httpBasic()
                 .and().build();

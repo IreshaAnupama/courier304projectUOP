@@ -1,6 +1,9 @@
 package com.example.courier304project.controller;
 
 import com.example.courier304project.dto.ParcelDto;
+import com.example.courier304project.dto.PickupDto;
+import com.example.courier304project.entity.Address;
+import com.example.courier304project.entity.Customer;
 import com.example.courier304project.entity.Parcel;
 import com.example.courier304project.service.ParcelService;
 import com.example.courier304project.service.ParcelService;
@@ -24,9 +27,11 @@ public class ParcelController {
 
 
 
+
     @PostMapping("/addparcel")
-    public Parcel addParcel (@RequestBody ParcelDto parcelDto){
-       return parcelService.addParcel(parcelDto);
+    public Parcel addparcel(@RequestBody PickupDto pickupDto){
+
+        return parcelService.addParcel(pickupDto);
 
    }
 }

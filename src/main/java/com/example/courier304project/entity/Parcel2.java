@@ -1,14 +1,16 @@
-package com.example.courier304project.dto;
+package com.example.courier304project.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+@Entity
+public class Parcel2{
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-public class ParcelDto {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long ParcelID;
 
     String senderPhoneNo;
     String senderName;
@@ -32,7 +34,6 @@ public class ParcelDto {
     String paymentType;
     String specialNote; //spetial
 
-    float parcelCost;
-    float deliveryCost;
+    int cost;
 
 }

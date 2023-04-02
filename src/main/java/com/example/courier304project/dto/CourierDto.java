@@ -1,7 +1,14 @@
 package com.example.courier304project.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.sql.Time;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class CourierDto {
 
     private String courierPhone;
@@ -13,67 +20,5 @@ public class CourierDto {
     private String courierUserName;
     private String vehicleNo; // made getter and setter until here
 
-    public String getCourierPhone() {
-        return courierPhone;
-    }
 
-    public void setCourierPhone(String courierPhone) {
-        this.courierPhone = courierPhone;
-    }
-
-    public Time getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Time endTime) {
-        this.endTime = endTime;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Time getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Time startTime) {
-        this.startTime = startTime;
-    }
-
-    public String getCourierUserName() {
-        return courierUserName;
-    }
-
-    public void setCourierUserName(String courierUserName) {
-        this.courierUserName = courierUserName;
-    }
-
-    public String getVehicleNo() {
-        return vehicleNo;
-    }
-
-    public void setVehicleNo(String vehicleNo) {
-        this.vehicleNo = vehicleNo;
-    }
 }

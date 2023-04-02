@@ -5,6 +5,7 @@ import com.example.courier304project.entity.Users;
 import com.example.courier304project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.lang.model.util.Elements;
@@ -29,4 +30,6 @@ public class UserController {
         return userService.getAllUsers();
 
     }
+
+
 }

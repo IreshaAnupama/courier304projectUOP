@@ -1,38 +1,41 @@
 package com.example.courier304project.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ParcelDto {
-
-    String senderPhoneNo;
+public class PickupDto {
     String senderName;
+    String senderPhoneNo;
     String senderEmail;
     String senderAddress;
     String senderCity;
     String senderDistrict;
+    Double senderLatitude;
+    Double senderLongitude;
 
-    String receiverPhoneNo;
     String receiverName;
+    String receiverPhoneNo;
+    String receiverEmail;
     String receiverAddress;
-    String receiverDistrict;
     String receiverCity;
+    String receiverDistrict;
 
-    //"12:12 AM" 'Date("11/24/2021")'
-    String timeFrom;
+    Date pickupDate;
+    String TimeFrom;
     String timeTo;
-    String pickupDate;
     String vehicleType;
     String postMethod;
     String paymentType;
-    String specialNote; //spetial
+    String specialNote;
 
     float parcelCost;
     float deliveryCost;
+
 
 }
