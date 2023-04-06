@@ -19,11 +19,17 @@ public class UserService {
 
     @Autowired
     private ModelMapper modelMapper;
+
     @Autowired
     private PasswordEncoder encoder;
-
     public void createNewUser(UserDto userDto){
-        userRepository.save(modelMapper.map(userDto,Users.class));
+        Users user=new Users(
+                userDto.getName(),
+                userDto.getEmail(),
+                encoder.encode(userDto.getPassword()),
+                userDto.getPassword());
+        userRepository.save(user);
+        //userRepository.save(modelMapper.map(userDto,Users.class));
 
 
     }
