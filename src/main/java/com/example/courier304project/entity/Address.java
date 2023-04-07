@@ -18,19 +18,24 @@ public class Address {
     private double latitude;
     private  double longitude;
     private  String fullAddress;
-    private String city;
+    private String postalCode;
     private String district;  // made getter and setter until here
 
+    @OneToOne(mappedBy = "senderAddress")
+    private Parcel sendingParcel;
+
+    @OneToOne(mappedBy = "receiverAddress")
+    private Parcel ReceivingParcel;
 
     @ManyToOne(fetch =FetchType.LAZY)
     @JoinColumn
     @JsonIgnore
     private Customer customer; // made getter and setter
 
-    public Address(String senderAddress, String senderCity, String senderDistrict, Customer customer) {
-        this.fullAddress=senderAddress;
-        this.city=senderCity;
-        this.district=senderDistrict;
+    public Address(String fullAddress, String postalCode, String district, Customer customer) {
+        this.fullAddress=fullAddress;
+        this.postalCode=postalCode;
+        this.district=district;
         this.customer=customer;
     }
 }

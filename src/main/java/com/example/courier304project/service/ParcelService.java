@@ -3,19 +3,20 @@ package com.example.courier304project.service;
 import com.example.courier304project.dto.ParcelDto;
 import com.example.courier304project.dto.ParcelDto;
 import com.example.courier304project.dto.PickupDto;
-import com.example.courier304project.entity.Address;
-import com.example.courier304project.entity.Customer;
+import com.example.courier304project.dto.go.StaffParcelListDto;
+import com.example.courier304project.dto.in.VehicleAssignDto;
+import com.example.courier304project.entity.*;
 import com.example.courier304project.entity.Parcel;
-import com.example.courier304project.entity.Parcel;
-import com.example.courier304project.repository.AddressRepository;
-import com.example.courier304project.repository.CustomerRepository;
-import com.example.courier304project.repository.ParcelRepository;
+import com.example.courier304project.exception.ResourceNotFoundException;
+import com.example.courier304project.repository.*;
 import com.example.courier304project.repository.ParcelRepository;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,6 +28,9 @@ public class ParcelService {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private CourierRepository courierRepository;
 
     @Autowired
     private AddressRepository addressRepository;
@@ -42,7 +46,8 @@ public class ParcelService {
     private ModelMapper modelMapper;
 
     @Transactional
-    public Parcel addParcel(PickupDto pickupDto) {
+    public Parcel
+    addParcel(PickupDto pickupDto) {
 
         Customer sender=new Customer(pickupDto.getSenderName(),pickupDto.getSenderPhoneNo(),
                 pickupDto.getSenderEmail());
@@ -53,21 +58,59 @@ public class ParcelService {
         customerRepository.save(receiver);
 
         Address senderAddress=new Address(pickupDto.getSenderAddress(),
-                pickupDto.getSenderCity(),pickupDto.getSenderDistrict(),sender);
+                pickupDto.getSenderPostalCode(),pickupDto.getSenderDistrict(),sender);
         addressRepository.save(senderAddress);
         Address receiverAddress=new Address(pickupDto.getReceiverAddress(),
-                pickupDto.getReceiverCity(),pickupDto.getReceiverDistrict(),sender);
+                pickupDto.getReceiverPostalCode(),pickupDto.getReceiverDistrict(),receiver);
         addressRepository.save(receiverAddress);
 
 
         Parcel parcel=new Parcel(pickupDto.getParcelCost(),pickupDto.getTimeFrom(),
                 pickupDto.getTimeTo(),pickupDto.getVehicleType(),pickupDto.getPostMethod(),
-                pickupDto.getPaymentType(),pickupDto.getSpecialNote(),pickupDto.getDeliveryCost(),pickupDto.getPickupDate(),sender,receiver);
+                pickupDto.getPaymentType(),pickupDto.getSpecialNote(),pickupDto.getDeliveryCost(),pickupDto.getPickupDate(),
+                senderAddress,receiverAddress,sender,receiver);
         parcelRepository.save(parcel);
 
         return parcel;
         //parcelRepository.save(modelMapper.map(parcelDto,Parcel.class));
 
 
+    }
+
+    public List<StaffParcelListDto> getNotVehicleParcels() {
+        List<Parcel> newParcels= parcelRepository.findByDeliveryVehicleIsNullOrPickupVehicleIsNull();
+        List<StaffParcelListDto> newParcelList = new ArrayList<>();
+       for(Parcel element: newParcels){
+
+           StaffParcelListDto newp=new StaffParcelListDto(
+                   element.getId(),
+                   element.getSenderAddress().getPostalCode(),
+                   element.getReceiverAddress().getPostalCode(),
+                   element.getLength(),
+                   element.getWidth(),
+                   element.getHeight(),
+                   element.getWeight(),
+                   element.getVehicleType());
+
+              newParcelList.add(newp);
+
+       }
+        return newParcelList;
+    }
+
+    public String assignVehicle(Long id, VehicleAssignDto vehicleAssignDto) {
+
+        Courier delivery= courierRepository.findByVehicleNo(vehicleAssignDto.getDeliveryVehicleNo());
+        Courier pickup= courierRepository.findByVehicleNo(vehicleAssignDto.getPickupVehicleNo());
+
+        Parcel parcel= parcelRepository.findById(id).
+               orElseThrow(() -> new ResourceNotFoundException
+                       ("Parcel not found for this id :"+ id));
+       parcel.setPickupVehicle(pickup);
+       parcel.setDeliveryVehicle(delivery);
+
+       final Parcel updatedParcel=parcelRepository.save(parcel);
+
+       return "vehicle assigned";
     }
 }

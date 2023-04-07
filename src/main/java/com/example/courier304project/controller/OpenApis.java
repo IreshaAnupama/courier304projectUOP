@@ -4,6 +4,7 @@ import com.example.courier304project.dto.AuthUserDto;
 import com.example.courier304project.service.JwtAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v2/open")
 public class OpenApis {
+
 
     @GetMapping("/demo")
     public String demoOpenApi(){

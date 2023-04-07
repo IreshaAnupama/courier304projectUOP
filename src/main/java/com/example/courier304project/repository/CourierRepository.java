@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CourierRepository extends JpaRepository<Courier,Long> {
+
+    Courier findByVehicleNo(String vehicleNo);
 }

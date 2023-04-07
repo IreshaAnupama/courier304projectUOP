@@ -1,15 +1,14 @@
 package com.example.courier304project.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Time;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -30,5 +29,12 @@ public class Courier {
     private String courierUserName;
     private String vehicleNo; // made getter and setter until here
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pickupVehicle")
+    @JsonIgnore
+    private List<Parcel> PickupParcels;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "deliveryVehicle")
+    @JsonIgnore
+    private List<Parcel> deliveryParcels;
 
 }

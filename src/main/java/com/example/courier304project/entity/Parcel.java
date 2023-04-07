@@ -17,18 +17,22 @@ import java.util.Date;
 public class Parcel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    Date pickupDate;
-    String timeFrom;
-    String timeTo;
+   private Long id;
+   private Date pickupDate;
+   private String timeFrom;
+   private String timeTo;
 
-    String vehicleType;
-    String postMethod;
-    String paymentType;
-    String specialNote;
+   private String vehicleType;
+   private String postMethod;
+   private String paymentType;
+   private String specialNote;
+   private float length;
+   private float width;
+   private float height;
+   private float weight;
 
-    float parcelCost;
-    float deliveryCost;
+   private float parcelCost;
+   private float deliveryCost;
 
     /*@ManyToOne(fetch =FetchType.LAZY)
    // @JoinColumn
@@ -41,6 +45,14 @@ public class Parcel {
             @JoinColumn(name="fk_sender",referencedColumnName = "customer_id"),
             @JoinColumn(name="fk_receivr",referencedColumnName = "customer_id")
     })*/
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn()
+    private Address senderAddress;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn()
+    private Address receiverAddress;
     @JsonIgnore
     @ManyToOne(fetch =FetchType.EAGER)
     @JoinColumn()
@@ -51,9 +63,20 @@ public class Parcel {
     @JoinColumn()
     private Customer receiver;
 
+    @JsonIgnore
+    @ManyToOne(fetch =FetchType.EAGER)
+    @JoinColumn()
+    private Courier pickupVehicle;
+
+    @JsonIgnore
+    @ManyToOne(fetch =FetchType.EAGER)
+    @JoinColumn()
+    private Courier deliveryVehicle;
+
 
     public Parcel(float parcelCost, String timeFrom, String timeTo, String vehicleType,
-                  String postMethod, String paymentType, String specialNote, float deliveryCost, Date pickupDate, Customer sender, Customer receiver) {
+                  String postMethod, String paymentType, String specialNote, float deliveryCost,
+                  Date pickupDate, Address senderAddress, Address receiverAddress,Customer sender,Customer receiver) {
             this.parcelCost=parcelCost;
            // this.pickupDate=pickupDate;
             this.timeFrom=timeFrom;
@@ -64,6 +87,8 @@ public class Parcel {
             this.specialNote=specialNote;
             this.deliveryCost=deliveryCost;
             this.pickupDate=pickupDate;
+            this.senderAddress=senderAddress;
+            this.receiverAddress=receiverAddress;
             this.sender=sender;
             this.receiver=receiver;
 

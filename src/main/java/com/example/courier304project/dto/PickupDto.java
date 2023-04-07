@@ -14,7 +14,7 @@ public class PickupDto {
     String senderPhoneNo;
     String senderEmail;
     String senderAddress;
-    String senderCity;
+    String senderPostalCode;
     String senderDistrict;
     Double senderLatitude;
     Double senderLongitude;
@@ -23,7 +23,7 @@ public class PickupDto {
     String receiverPhoneNo;
     String receiverEmail;
     String receiverAddress;
-    String receiverCity;
+    String receiverPostalCode;
     String receiverDistrict;
 
     Date pickupDate;
