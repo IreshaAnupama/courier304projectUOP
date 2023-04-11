@@ -37,4 +37,12 @@ public class Courier {
     @JsonIgnore
     private List<Parcel> deliveryParcels;
 
+    public Courier(String courierPhone, String courierUserName, double latitude, double longitude, String password, String vehicleNo) {
+        this.courierPhone=courierPhone;
+        this.courierUserName=courierUserName;
+        this.latitude=latitude;
+        this.longitude=longitude;
+        this.password=password;
+        this.vehicleNo=vehicleNo;
+    }
 }

@@ -1,4 +1,4 @@
-package com.example.courier304project.dto.in;
+package com.example.courier304project.dto.receive;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

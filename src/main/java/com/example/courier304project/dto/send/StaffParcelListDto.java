@@ -1,6 +1,5 @@
-package com.example.courier304project.dto.go;
+package com.example.courier304project.dto.send;
 
-import com.example.courier304project.entity.Courier;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

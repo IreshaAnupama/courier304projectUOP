@@ -1,5 +1,6 @@
 package com.example.courier304project.security;
 
+
 import com.example.courier304project.filter.JwtAuthFilter;
 import com.example.courier304project.service.JwtAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity
 public class ApplicationSecurityConfiguration {
 
+
     @Autowired
-    private  JwtAuthFilter jwtAuthFilter;
+    private JwtAuthFilter jwtAuthFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

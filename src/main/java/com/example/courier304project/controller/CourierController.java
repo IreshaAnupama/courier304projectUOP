@@ -2,19 +2,25 @@ package com.example.courier304project.controller;
 
 import com.example.courier304project.dto.CourierDto;
 import com.example.courier304project.entity.Courier;
+import com.example.courier304project.entity.Parcel;
 import com.example.courier304project.service.CourierService;
+import com.example.courier304project.service.ParcelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/user")
 public class CourierController {
 
     @Autowired
     private CourierService courierService;
+
+    @Autowired
+    private ParcelService parcelService;
 
     @PostMapping("/addCourier")
     public  void addCourier(@RequestBody CourierDto courierDto){
@@ -27,6 +33,7 @@ public class CourierController {
 
         return courierService.getCouriers();
     }
+
 
     @GetMapping("/forUser")
     @PreAuthorize("hasAnyRole('ADMIN','USER')")

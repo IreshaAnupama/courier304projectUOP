@@ -1,16 +1,13 @@
 package com.example.courier304project.controller;
 
-import com.example.courier304project.dto.ParcelDto;
 import com.example.courier304project.dto.PickupDto;
-import com.example.courier304project.dto.go.StaffParcelListDto;
-import com.example.courier304project.dto.in.VehicleAssignDto;
-import com.example.courier304project.entity.Address;
-import com.example.courier304project.entity.Customer;
+import com.example.courier304project.dto.send.DriverParcelListDto;
+import com.example.courier304project.dto.send.StaffParcelListDto;
+import com.example.courier304project.dto.receive.VehicleAssignDto;
 import com.example.courier304project.entity.Parcel;
 import com.example.courier304project.service.ParcelService;
-import com.example.courier304project.service.ParcelService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +19,12 @@ public class ParcelController {
 
     @Autowired
     private ParcelService parcelService;
+
+    @GetMapping("/p")
+    public List<Parcel> p(){
+       return parcelService.p();
+
+    }
 
     @GetMapping("/getParcel")
     public List<Parcel> getParcel() {
@@ -46,6 +49,15 @@ public class ParcelController {
     public String assignVehicle(
             @PathVariable Long id, @RequestBody VehicleAssignDto vehicleAssignDto){
         return parcelService.assignVehicle(id,vehicleAssignDto);
+
+    }
+
+    @GetMapping("/{id}/driverParcelList")
+    public List<DriverParcelListDto> getDriverParcelList(Long id){
+        return parcelService.getDriverParcelList(id);
+
+
+
 
     }
 

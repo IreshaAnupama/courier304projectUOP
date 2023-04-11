@@ -1,10 +1,9 @@
 package com.example.courier304project.service;
 
-import com.example.courier304project.dto.ParcelDto;
-import com.example.courier304project.dto.ParcelDto;
 import com.example.courier304project.dto.PickupDto;
-import com.example.courier304project.dto.go.StaffParcelListDto;
-import com.example.courier304project.dto.in.VehicleAssignDto;
+import com.example.courier304project.dto.send.DriverParcelListDto;
+import com.example.courier304project.dto.send.StaffParcelListDto;
+import com.example.courier304project.dto.receive.VehicleAssignDto;
 import com.example.courier304project.entity.*;
 import com.example.courier304project.entity.Parcel;
 import com.example.courier304project.exception.ResourceNotFoundException;
@@ -13,7 +12,6 @@ import com.example.courier304project.repository.ParcelRepository;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -98,6 +96,28 @@ public class ParcelService {
         return newParcelList;
     }
 
+    public List<DriverParcelListDto> getDriverParcelList(Long id) {
+        Courier courier=courierRepository.findCourierByCourierId(id);
+        List<Parcel> parcels=parcelRepository.findByPickupVehicle(courier);
+        List<DriverParcelListDto> driverParcelListDtos=new ArrayList<>();
+        for(Parcel element:parcels){
+            DriverParcelListDto oneParcel= new DriverParcelListDto(
+                    element.getSender().getCustomerPhone(),
+                    element.getSender().getCustomerUserName(),
+                    element.getSenderAddress().getFullAddress(),
+                    element.getSenderAddress().getLatitude(),
+                    element.getSenderAddress().getLongitude(),
+                    element.getTimeFrom(),
+                    element.getTimeTo(),
+                    element.getPickupDate(),
+                    element.getPaymentType(),
+                    element.getSpecialNote(),
+                    element.getParcelCost(),
+                    element.getDeliveryCost()
+            ); driverParcelListDtos.add(oneParcel);
+        }
+        return driverParcelListDtos;
+    }
     public String assignVehicle(Long id, VehicleAssignDto vehicleAssignDto) {
 
         Courier delivery= courierRepository.findByVehicleNo(vehicleAssignDto.getDeliveryVehicleNo());
@@ -113,4 +133,9 @@ public class ParcelService {
 
        return "vehicle assigned";
     }
+
+    public List<Parcel> p() {
+        return parcelRepository.findAll();
+    }
+
 }
