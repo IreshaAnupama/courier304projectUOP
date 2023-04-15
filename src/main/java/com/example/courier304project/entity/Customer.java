@@ -1,16 +1,26 @@
 package com.example.courier304project.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@ToString
 public class Customer {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private int customerId;
     private String customerPhone;
     private String email;
     private String password;
@@ -19,70 +29,35 @@ public class Customer {
     private Time startTime;
     private Time endTime; // made getter and setter until here
 
-    @ManyToMany(mappedBy = "customer")
-    private List<Address> address; //  made getter and setter
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
+    @JsonIgnore
+    private List<Address> address = new ArrayList<>(); //  made getter and setter
 
-    public List<Address> getAddress() {
-        return address;
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "sender")
+    @JsonIgnore
+    private List<Parcel> senderParcels;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "sender")
+    @JsonIgnore
+    private List<Parcel> receiverParcels;
+
+
+    public Customer(String senderName, String senderPhoneNo, String senderEmail) {
+
+        this.customerUserName=senderName;
+        this.customerPhone=senderPhoneNo;
+        this.email=senderEmail;
+
     }
 
-    public void setAddress(List<Address> address) {
-        this.address = address;
-    }
+    public Customer(String customerPhone, String customerUserName, String email, String password) {
+        this.customerUserName=customerUserName;
+        this.customerPhone=customerPhone;
+        this.email=email;
+        this.password=password;
+       // this.address.add(address);
 
-    public String getCustomerPhone() {
-        return customerPhone;
-    }
-
-    public void setCustomerPhone(String customerPhone) {
-        this.customerPhone = customerPhone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getCustomerUserName() {
-        return customerUserName;
-    }
-
-    public void setCustomerUserName(String customerUserName) {
-        this.customerUserName = customerUserName;
-    }
-
-    public String getCustomerFullName() {
-        return customerFullName;
-    }
-
-    public void setCustomerFullName(String customerFullName) {
-        this.customerFullName = customerFullName;
-    }
-
-    public Time getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Time startTime) {
-        this.startTime = startTime;
-    }
-
-    public Time getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Time endTime) {
-        this.endTime = endTime;
     }
 }

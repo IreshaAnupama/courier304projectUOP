@@ -1,115 +1,101 @@
 package com.example.courier304project.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.util.Date;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@ToString
 public class Parcel {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int parcelId;
-    private Float cost;
-    private int paymentType;
-    private float length;
-    private float width;
-    private float height;
-    private Date date;
-    private Time time;
-    private int scheduleNo;
-    private double distance;
-    private int status; // made getter and setter until here
+   private Long id;
+   private Date pickupDate;
+   private String timeFrom;
+   private String timeTo;
 
-    public int getParcelId() {
-        return parcelId;
-    }
+   private String vehicleType;
+   private String postMethod;
+   private String paymentType;
+   private String specialNote;
+   private float length;
+   private float width;
+   private float height;
+   private float weight;
 
-    public void setParcelId(int parcelId) {
-        this.parcelId = parcelId;
-    }
+   private float parcelCost;
+   private float deliveryCost;
 
-    public Float getCost() {
-        return cost;
-    }
+    /*@ManyToOne(fetch =FetchType.LAZY)
+   // @JoinColumn
+   // @JsonIgnore
+    //private Customer sender;
 
-    public void setCost(Float cost) {
-        this.cost = cost;
-    }
+   @JsonIgnore
+    @ManyToOne(fetch =FetchType.LAZY)
+   @JoinColumns({
+            @JoinColumn(name="fk_sender",referencedColumnName = "customer_id"),
+            @JoinColumn(name="fk_receivr",referencedColumnName = "customer_id")
+    })*/
 
-    public int getPaymentType() {
-        return paymentType;
-    }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn()
+    private Address senderAddress;
 
-    public void setPaymentType(int paymentType) {
-        this.paymentType = paymentType;
-    }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn()
+    private Address receiverAddress;
+    @JsonIgnore
+    @ManyToOne(fetch =FetchType.EAGER)
+    @JoinColumn()
+    private Customer sender;
 
-    public float getLength() {
-        return length;
-    }
+    @JsonIgnore
+    @ManyToOne(fetch =FetchType.EAGER)
+    @JoinColumn()
+    private Customer receiver;
 
-    public void setLength(float length) {
-        this.length = length;
-    }
+    @JsonIgnore
+    @ManyToOne(fetch =FetchType.EAGER)
+    @JoinColumn()
+    private Courier pickupVehicle;
 
-    public float getWidth() {
-        return width;
-    }
+    @JsonIgnore
+    @ManyToOne(fetch =FetchType.EAGER)
+    @JoinColumn()
+    private Courier deliveryVehicle;
 
-    public void setWidth(float width) {
-        this.width = width;
-    }
 
-    public float getHeight() {
-        return height;
-    }
+    public Parcel(float parcelCost, String timeFrom, String timeTo, String vehicleType,
+                  String postMethod, String paymentType, String specialNote, float deliveryCost,
+                  Date pickupDate,float weight,float length,float width,float height, Address senderAddress, Address receiverAddress,Customer sender,Customer receiver) {
+            this.parcelCost=parcelCost;
+           // this.pickupDate=pickupDate;
+            this.timeFrom=timeFrom;
+            this.timeTo=timeTo;
+            this.paymentType=paymentType;
+            this.postMethod=postMethod;
+            this.vehicleType=vehicleType;
+            this.specialNote=specialNote;
+            this.deliveryCost=deliveryCost;
+            this.pickupDate=pickupDate;
+            this.senderAddress=senderAddress;
+            this.receiverAddress=receiverAddress;
+            this.sender=sender;
+            this.receiver=receiver;
+            this.weight=weight;
+            this.length=length;
+            this.width=width;
+            this.height=height;
 
-    public void setHeight(float height) {
-        this.height = height;
-    }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Time getTime() {
-        return time;
-    }
-
-    public void setTime(Time time) {
-        this.time = time;
-    }
-
-    public int getScheduleNo() {
-        return scheduleNo;
-    }
-
-    public void setScheduleNo(int scheduleNo) {
-        this.scheduleNo = scheduleNo;
-    }
-
-    public double getDistance() {
-        return distance;
-    }
-
-    public void setDistance(double distance) {
-        this.distance = distance;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
     }
 }

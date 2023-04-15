@@ -1,85 +1,71 @@
 package com.example.courier304project.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Time;
+import java.util.List;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Courier {
 
     @Id
-    private String customerPhone;
-    private Time endTime;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long courierId;
+
+    private String courierPhone;
+    //private Time endTime;
+    private String email;
     private double latitude;
     private double longitude;
+    private  String address;
     private  String password;
-    private Time startTime;
+   // private Time startTime;
+    private String district;
     private String courierUserName;
     private String vehicleNo; // made getter and setter until here
 
-    public String getCustomerPhone() {
-        return customerPhone;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
+    private PostalCode postalCodes;
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pickupVehicle")
+    @JsonIgnore
+    private List<Parcel> pickupParcels;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "deliveryVehicle")
+    @JsonIgnore
+    private List<Parcel> deliveryParcels;
+
+    public Courier(String courierPhone, String courierUserName, double latitude, double longitude, String password, String vehicleNo) {
+        this.courierPhone=courierPhone;
+        this.courierUserName=courierUserName;
+        this.latitude=latitude;
+        this.longitude=longitude;
+        this.password=password;
+        this.vehicleNo=vehicleNo;
     }
 
-    public void setCustomerPhone(String customerPhone) {
-        this.customerPhone = customerPhone;
-    }
+    public Courier(String courierPhone, String courierUserName, double latitude, double longitude, String password, String vehicleNo, String address, String district, String email, PostalCode postalCodes) {
+        this.courierPhone=courierPhone;
+        this.courierUserName=courierUserName;
+        this.latitude=latitude;
+        this.longitude=longitude;
+        this.password=password;
+        this.vehicleNo=vehicleNo;
+        this.email=email;
+        this.postalCodes=postalCodes;
+        this.address=address;
+        this.district=district;
 
-    public Time getEndTime() {
-        return endTime;
-    }
 
-    public void setEndTime(Time endTime) {
-        this.endTime = endTime;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Time getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Time startTime) {
-        this.startTime = startTime;
-    }
-
-    public String getCourierUserName() {
-        return courierUserName;
-    }
-
-    public void setCourierUserName(String courierUserName) {
-        this.courierUserName = courierUserName;
-    }
-
-    public String getVehicleNo() {
-        return vehicleNo;
-    }
-
-    public void setVehicleNo(String vehicleNo) {
-        this.vehicleNo = vehicleNo;
     }
 }
