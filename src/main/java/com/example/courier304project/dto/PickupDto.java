@@ -36,6 +36,10 @@ public class PickupDto {
 
     float parcelCost;
     float deliveryCost;
+    float weight;
+    float length;
+    float width;
+    float height;
 
 
 }

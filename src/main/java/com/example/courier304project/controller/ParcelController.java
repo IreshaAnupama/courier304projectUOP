@@ -45,10 +45,11 @@ public class ParcelController {
 
 }
 
-    @PatchMapping ("/{id}")
+    @PatchMapping ("/assign/{id}")
     public String assignVehicle(
             @PathVariable Long id, @RequestBody VehicleAssignDto vehicleAssignDto){
-        return parcelService.assignVehicle(id,vehicleAssignDto);
+        parcelService.assignVehicle(id,vehicleAssignDto);
+        return "hari";
 
     }
 

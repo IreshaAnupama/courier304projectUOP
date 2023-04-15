@@ -14,12 +14,12 @@ public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int addressId; //make getter and setter begin here
+    private int addressId;
     private double latitude;
     private  double longitude;
     private  String fullAddress;
     private String postalCode;
-    private String district;  // made getter and setter until here
+    private String district;
 
     @OneToOne(mappedBy = "senderAddress")
     private Parcel sendingParcel;
@@ -38,4 +38,14 @@ public class Address {
         this.district=district;
         this.customer=customer;
     }
-}
+
+    public Address(String address, String postalCode, String district,  double latitude, double longitude,Customer customer) {
+        this.fullAddress=address;
+        this.postalCode=postalCode;
+        this.district=district;
+        this.latitude=latitude;
+        this.longitude=longitude;
+        this.customer=customer;
+    }
+    }
+

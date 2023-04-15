@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -30,7 +31,7 @@ public class Customer {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
     @JsonIgnore
-    private List<Address> address; //  made getter and setter
+    private List<Address> address = new ArrayList<>(); //  made getter and setter
 
 
 
@@ -48,6 +49,15 @@ public class Customer {
         this.customerUserName=senderName;
         this.customerPhone=senderPhoneNo;
         this.email=senderEmail;
+
+    }
+
+    public Customer(String customerPhone, String customerUserName, String email, String password) {
+        this.customerUserName=customerUserName;
+        this.customerPhone=customerPhone;
+        this.email=email;
+        this.password=password;
+       // this.address.add(address);
 
     }
 }

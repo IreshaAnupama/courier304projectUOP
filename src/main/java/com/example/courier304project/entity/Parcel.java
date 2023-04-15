@@ -76,7 +76,7 @@ public class Parcel {
 
     public Parcel(float parcelCost, String timeFrom, String timeTo, String vehicleType,
                   String postMethod, String paymentType, String specialNote, float deliveryCost,
-                  Date pickupDate, Address senderAddress, Address receiverAddress,Customer sender,Customer receiver) {
+                  Date pickupDate,float weight,float length,float width,float height, Address senderAddress, Address receiverAddress,Customer sender,Customer receiver) {
             this.parcelCost=parcelCost;
            // this.pickupDate=pickupDate;
             this.timeFrom=timeFrom;
@@ -91,6 +91,10 @@ public class Parcel {
             this.receiverAddress=receiverAddress;
             this.sender=sender;
             this.receiver=receiver;
+            this.weight=weight;
+            this.length=length;
+            this.width=width;
+            this.height=height;
 
 
     }
