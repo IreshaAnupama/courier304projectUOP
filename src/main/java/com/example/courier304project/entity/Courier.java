@@ -21,17 +21,25 @@ public class Courier {
     Long courierId;
 
     private String courierPhone;
-    private Time endTime;
+    //private Time endTime;
+    private String email;
     private double latitude;
     private double longitude;
+    private  String address;
     private  String password;
-    private Time startTime;
+   // private Time startTime;
+    private String district;
     private String courierUserName;
     private String vehicleNo; // made getter and setter until here
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
+    private PostalCode postalCodes;
+
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "pickupVehicle")
     @JsonIgnore
-    private List<Parcel> PickupParcels;
+    private List<Parcel> pickupParcels;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "deliveryVehicle")
     @JsonIgnore
@@ -44,5 +52,20 @@ public class Courier {
         this.longitude=longitude;
         this.password=password;
         this.vehicleNo=vehicleNo;
+    }
+
+    public Courier(String courierPhone, String courierUserName, double latitude, double longitude, String password, String vehicleNo, String address, String district, String email, PostalCode postalCodes) {
+        this.courierPhone=courierPhone;
+        this.courierUserName=courierUserName;
+        this.latitude=latitude;
+        this.longitude=longitude;
+        this.password=password;
+        this.vehicleNo=vehicleNo;
+        this.email=email;
+        this.postalCodes=postalCodes;
+        this.address=address;
+        this.district=district;
+
+
     }
 }

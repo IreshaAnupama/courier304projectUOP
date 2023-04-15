@@ -1,6 +1,7 @@
 package com.example.courier304project.controller;
 
 import com.example.courier304project.dto.CourierDto;
+import com.example.courier304project.dto.receive.CourierCreateDto;
 import com.example.courier304project.entity.Courier;
 import com.example.courier304project.entity.Parcel;
 import com.example.courier304project.service.CourierService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/user")
 public class CourierController {
@@ -21,6 +23,11 @@ public class CourierController {
 
     @Autowired
     private ParcelService parcelService;
+
+    @PostMapping("/createDriver")
+    public Courier createCourier(@RequestBody CourierCreateDto courierCreateDto){
+        return courierService.createCourier(courierCreateDto);
+    }
 
     @PostMapping("/addCourier")
     public  void addCourier(@RequestBody CourierDto courierDto){
@@ -35,7 +42,7 @@ public class CourierController {
     }
 
 
-    @GetMapping("/forUser")
+    /*@GetMapping("/forUser")
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     public String forUser(){
         return "for User";
@@ -45,6 +52,6 @@ public class CourierController {
     @PreAuthorize("hasRole('ADMIN')")
     public String forAdmin(){
         return "for admin";
-    }
+    }*/
 
 }
