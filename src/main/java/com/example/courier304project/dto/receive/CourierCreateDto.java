@@ -2,6 +2,7 @@ package com.example.courier304project.dto.receive;
 
 import com.example.courier304project.entity.PostalCode;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class CourierCreateDto {
 
     private String courierPhone;

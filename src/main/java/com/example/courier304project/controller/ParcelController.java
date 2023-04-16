@@ -33,7 +33,7 @@ public class ParcelController {
 
 
     @PostMapping("/addparcel")
-    public Parcel addparcel(@RequestBody PickupDto pickupDto) {
+    public Long addparcel(@RequestBody PickupDto pickupDto) {
 
         return parcelService.addParcel(pickupDto);
 

@@ -33,6 +33,9 @@ public class Customer {
     @JsonIgnore
     private List<Address> address = new ArrayList<>(); //  made getter and setter
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
+    private User user;
 
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "sender")

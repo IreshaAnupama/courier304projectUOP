@@ -44,7 +44,7 @@ public class ParcelService {
     private ModelMapper modelMapper;
 
     @Transactional
-    public Parcel addParcel(PickupDto pickupDto) {
+    public long addParcel(PickupDto pickupDto) {
 
         Customer sender=new Customer(pickupDto.getSenderName(),pickupDto.getSenderPhoneNo(),
                 pickupDto.getSenderEmail());
@@ -69,7 +69,9 @@ public class ParcelService {
                 senderAddress,receiverAddress,sender,receiver);
         parcelRepository.save(parcel);
 
-        return parcel;
+
+
+        return parcel.getId();
         //parcelRepository.save(modelMapper.map(parcelDto,Parcel.class));
 
 

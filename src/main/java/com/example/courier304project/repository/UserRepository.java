@@ -1,11 +1,12 @@
 package com.example.courier304project.repository;
 
-import com.example.courier304project.entity.Users;
+import com.example.courier304project.entity.User;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<Users, Integer> {
+public interface UserRepository extends JpaRepository<User, Integer> {
 
-    Optional<Users> findByName(String username);
+    Optional<User> findByPhoneNo(String phoneNo);
 }

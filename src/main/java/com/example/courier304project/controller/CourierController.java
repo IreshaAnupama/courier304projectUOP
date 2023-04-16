@@ -24,22 +24,22 @@ public class CourierController {
     @Autowired
     private ParcelService parcelService;
 
-    @PostMapping("/createDriver")
+   /* @PostMapping("/createDriver")
     public Courier createCourier(@RequestBody CourierCreateDto courierCreateDto){
         return courierService.createCourier(courierCreateDto);
-    }
+    }*/
 
-    @PostMapping("/addCourier")
+   /* @PostMapping("/addCourier")
     public  void addCourier(@RequestBody CourierDto courierDto){
         courierService.addCourier(courierDto);
 
 
-    }
-    @GetMapping("/getcouriers")
+    }*/
+   /* @GetMapping("/getcouriers")
     public List<Courier> getAllCouriers(){
 
         return courierService.getCouriers();
-    }
+    }*/
 
 
     /*@GetMapping("/forUser")
