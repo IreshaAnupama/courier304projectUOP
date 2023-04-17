@@ -6,7 +6,7 @@ import com.example.courier304project.dto.send.StaffParcelListDto;
 import com.example.courier304project.dto.receive.VehicleAssignDto;
 import com.example.courier304project.entity.Parcel;
 import com.example.courier304project.service.ParcelService;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,7 +54,7 @@ public class ParcelController {
     }
 
     @GetMapping("/{id}/driverParcelList")
-    public List<DriverParcelListDto> getDriverParcelList(Long id){
+    public List<DriverParcelListDto> getDriverParcelList(@PathVariable Long id){
         return parcelService.getDriverParcelList(id);
 
 
